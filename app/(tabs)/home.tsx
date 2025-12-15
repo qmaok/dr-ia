@@ -4,6 +4,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Modal,
+  Pressable,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import {
@@ -13,12 +15,15 @@ import {
   History,
   Building2,
   MoreVertical,
+  Settings,
+  LogOut,
 } from 'lucide-react-native';
 import { useState } from 'react';
 
 export default function HomeScreen() {
   const router = useRouter();
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -32,7 +37,10 @@ export default function HomeScreen() {
             <Text style={styles.subGreeting}>¿Cómo te sientes hoy?</Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.menuButton}>
+        <TouchableOpacity
+          style={styles.menuButton}
+          onPress={() => setIsModalVisible(true)}
+        >
           <MoreVertical size={24} color="#212121" />
         </TouchableOpacity>
       </View>
@@ -144,6 +152,50 @@ export default function HomeScreen() {
           </View>
         </View>
       </ScrollView>
+
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={() => setIsModalVisible(false)}
+      >
+        <Pressable
+          style={styles.modalOverlay}
+          onPress={() => setIsModalVisible(false)}
+        >
+          <View style={styles.modalContent}>
+            <TouchableOpacity
+              style={styles.modalOption}
+              onPress={() => {
+                setIsModalVisible(false);
+                // Navigate to configuration screen (to be implemented)
+              }}
+            >
+              <View style={styles.modalIconContainer}>
+                <Settings size={24} color="#2196F3" strokeWidth={2} />
+              </View>
+              <Text style={styles.modalOptionText}>Configuración</Text>
+            </TouchableOpacity>
+
+            <View style={styles.modalDivider} />
+
+            <TouchableOpacity
+              style={styles.modalOption}
+              onPress={() => {
+                setIsModalVisible(false);
+                router.replace('/login');
+              }}
+            >
+              <View style={styles.modalIconContainer}>
+                <LogOut size={24} color="#F44336" strokeWidth={2} />
+              </View>
+              <Text style={[styles.modalOptionText, styles.logoutText]}>
+                Cerrar Sesión
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </Pressable>
+      </Modal>
     </View>
   );
 }
@@ -391,5 +443,51 @@ const styles = StyleSheet.create({
     color: '#757575',
     textAlign: 'center',
     lineHeight: 16,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
+    paddingTop: 100,
+    paddingRight: 20,
+  },
+  modalContent: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    minWidth: 220,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  modalOption: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 16,
+    paddingHorizontal: 20,
+  },
+  modalIconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#F5F5F5',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  modalOptionText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#212121',
+  },
+  logoutText: {
+    color: '#F44336',
+  },
+  modalDivider: {
+    height: 1,
+    backgroundColor: '#E0E0E0',
+    marginHorizontal: 20,
   },
 });
