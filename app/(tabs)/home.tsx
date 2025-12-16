@@ -56,7 +56,7 @@ export default function HomeScreen() {
         >
           <View style={styles.aiCardHeader}>
             <MessageSquare size={24} color="#FFFFFF" strokeWidth={2} />
-            <Text style={styles.aiCardTitle}>Asistente Médico IA</Text>
+            <Text style={styles.aiCardTitle}>Asistent Médico IA</Text>
           </View>
           <Text style={styles.aiCardDescription}>
             Describe tus síntomas y obtén una solicitud de receta médica generada por IA
