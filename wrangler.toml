@@ -1,0 +1,6 @@
+name = "prescription-proxy"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# Account ID
+account_id = "87aba331d784892f32480d99a1a78bc2"
