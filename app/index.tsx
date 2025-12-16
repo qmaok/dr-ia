@@ -35,7 +35,10 @@ export default function WelcomeScreen() {
             <Text style={styles.arrow}>›</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.card}>
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => router.push('/doctor-profile')}
+          >
             <View style={styles.cardIconContainer}>
               <Stethoscope size={32} color="#2196F3" strokeWidth={2} />
             </View>
